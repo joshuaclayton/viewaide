@@ -60,19 +60,19 @@ class FormHelperTest < Viewaide::ViewTestCase
 
     should "assign default class if width class is passed as the only class" do
       show_view "<% set :half do %>words<% end %>" do
-        assert_select "div.text.col-12", "words"
+        assert_select "div.text.span-12", "words"
       end
     end
 
     should "assign default class if last class is passed as the only class" do
       show_view "<% set :half, :last do %>words<% end %>" do
-        assert_select "div.col-12.text.col-last", "words"
+        assert_select "div.span-12.text.last", "words"
       end
     end
 
     should "assign default class if error class is passed" do
       show_view "<% set :half, :last, :error do %>words<% end %>" do
-        assert_select "div.col-12.text.col-last.error", "words"
+        assert_select "div.span-12.text.last.error", "words"
       end
     end
 
@@ -101,14 +101,14 @@ class FormHelperTest < Viewaide::ViewTestCase
     end
 
     should "allow adding fieldset classes" do
-      show_view "<% fieldset :hform, 'col-last' do %>words<% end %>" do
-        assert_select "fieldset.hform.col-last", "words"
+      show_view "<% fieldset :hform, :last do %>words<% end %>" do
+        assert_select "fieldset.hform.last", "words"
       end
     end
 
     should "allow adding fieldset classes and a legend" do
-      show_view "<% fieldset 'User Information', :hform, 'col-last' do %>words<% end %>" do
-        assert_select "fieldset.hform.col-last", /words/ do
+      show_view "<% fieldset 'User Information', :hform, :last do %>words<% end %>" do
+        assert_select "fieldset.hform.last", /words/ do
           assert_select "h3.legend", "User Information"
         end
       end

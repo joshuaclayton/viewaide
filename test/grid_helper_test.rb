@@ -29,16 +29,16 @@ class GridHelperTest < Viewaide::ViewTestCase
 
       show_view template do
         assert_select ".container", 1
-        assert_select ".container.col-24", 0
-        assert_select ".col-24", 1
-        assert_select ".col-12", 2
-        assert_select ".col-12#primary", 1
-        assert_select ".col-12#secondary", 1
-        assert_select ".col-4", 2
+        assert_select ".container.span-24", 0
+        assert_select ".span-24", 1
+        assert_select ".span-12", 2
+        assert_select ".span-12#primary", 1
+        assert_select ".span-12#secondary", 1
+        assert_select ".span-4", 2
         assert_select ".prepend-4", 1
-        assert_select ".col-24.col-last", 0
-        assert_select ".col-12.col-last", 1
-        assert_select ".col-4.col-last", 1
+        assert_select ".span-24.last", 0
+        assert_select ".span-12.last", 1
+        assert_select ".span-4.last", 1
         assert_select "hr", 2
       end
     end
@@ -55,12 +55,12 @@ class GridHelperTest < Viewaide::ViewTestCase
       )
 
       show_view template do
-        assert_select "div.col-24" do
-          assert_select "fieldset.hform.col-12" do
-            assert_select "div.col-4", "text"
-            assert_select "div.col-8.col-last", "more text"
+        assert_select "div.span-24" do
+          assert_select "fieldset.hform.span-12" do
+            assert_select "div.span-4", "text"
+            assert_select "div.span-8.last", "more text"
           end
-          assert_select "table.col-12.col-last", "table"
+          assert_select "table.span-12.last", "table"
         end
       end
     end
@@ -87,24 +87,24 @@ class GridHelperTest < Viewaide::ViewTestCase
       )
 
       show_view template do
-        assert_select "fieldset.hform.col-12" do
-          assert_select "div.col-4", "text"
-          assert_select "div.col-8.col-last", "more text"
+        assert_select "fieldset.hform.span-12" do
+          assert_select "div.span-4", "text"
+          assert_select "div.span-8.last", "more text"
 
-          assert_select "div.col-12.col-last" do
-            assert_select "div.col-4", "one third"
-            assert_select "div.col-8.col-last" do
-              assert_select "div.col-4", "half"
-              assert_select "div.col-4.col-last", "last half"
+          assert_select "div.span-12.last" do
+            assert_select "div.span-4", "one third"
+            assert_select "div.span-8.last" do
+              assert_select "div.span-4", "half"
+              assert_select "div.span-4.last", "last half"
             end
           end
         end
-        assert_select "div.col-8" do
-          assert_select "div.col-2", "two wide"
-          assert_select "div.col-4", "four wide"
-          assert_select "div.col-2.col-last", "two more wide"
+        assert_select "div.span-8" do
+          assert_select "div.span-2", "two wide"
+          assert_select "div.span-4", "four wide"
+          assert_select "div.span-2.last", "two more wide"
         end
-        assert_select "table.col-4.col-last", "table"
+        assert_select "table.span-4.last", "table"
       end
     end
 
@@ -128,20 +128,20 @@ class GridHelperTest < Viewaide::ViewTestCase
       )
 
       show_view template do
-        assert_select "div.container.col-24", 1
+        assert_select "div.container.span-24", 1
         assert_select "div.container" do
-          assert_select "div.col-12" do
-            assert_select "fieldset.hform.col-6" do
-              assert_select "div.col-2", "text"
-              assert_select "div.col-4.col-last", "more text"
+          assert_select "div.span-12" do
+            assert_select "fieldset.hform.span-6" do
+              assert_select "div.span-2", "text"
+              assert_select "div.span-4.last", "more text"
             end
-            assert_select "table.col-6.col-last", "table"
+            assert_select "table.span-6.last", "table"
           end
 
-          assert_select "div.col-8", "one third!"
+          assert_select "div.span-8", "one third!"
 
-          assert_select "div.col-4.col-last" do
-            assert_select "fieldset.vform.col-4.col-last" do
+          assert_select "div.span-4.last" do
+            assert_select "fieldset.vform.span-4.last" do
               assert_select "div", "text"
             end
           end
@@ -149,7 +149,7 @@ class GridHelperTest < Viewaide::ViewTestCase
       end
     end
 
-    should "properly assign classes when using Blueprint grid" do
+    should "properly assign classes when using Easel grid" do
       template = %(
         <% container do %>
           <% column do %>
@@ -171,21 +171,21 @@ class GridHelperTest < Viewaide::ViewTestCase
           <% end %>
         <% end %>
       )
-      Viewaide::Helpers::GridHelper.blueprint_grid!
+      Viewaide::Helpers::GridHelper.easel_grid!
       show_view template do
         assert_select ".container", 1
-        assert_select ".span-24", 1
-        assert_select ".span-12", 2
-        assert_select ".span-12#primary", 1
-        assert_select ".span-12#secondary", 1
-        assert_select ".span-4", 2
+        assert_select ".col-24", 1
+        assert_select ".col-12", 2
+        assert_select ".col-12#primary", 1
+        assert_select ".col-12#secondary", 1
+        assert_select ".col-4", 2
         assert_select ".prepend-4", 1
-        assert_select ".span-24.last", 0
-        assert_select ".span-12.last", 1
-        assert_select ".span-4.last", 1
+        assert_select ".col-24.col-last", 0
+        assert_select ".col-12.col-last", 1
+        assert_select ".col-4.col-last", 1
         assert_select "hr", 2
       end
-      Viewaide::Helpers::GridHelper.easel_grid!
+      Viewaide::Helpers::GridHelper.blueprint_grid!
     end
   end
 
@@ -195,7 +195,7 @@ class GridHelperTest < Viewaide::ViewTestCase
       show_view %(
         <% column :id => "my-custom-id", :class => "content" do %>words<% end %>
       ) do
-        assert_select "div.col-24.content#my-custom-id", "words"
+        assert_select "div.span-24.content#my-custom-id", "words"
       end
     end
 
@@ -208,18 +208,18 @@ class GridHelperTest < Viewaide::ViewTestCase
           <% column 1, :last do %>one<% end %>
         <% end %>
       ) do
-        assert_select "div.col-6.sidebar" do
-          assert_select "div.col-6.col-last#main", "main sidebar"
-          assert_select "div.col-3", "three"
-          assert_select "div.col-2", "two"
-          assert_select "div.col-1.col-last", "one"
+        assert_select "div.span-6.sidebar" do
+          assert_select "div.span-6.last#main", "main sidebar"
+          assert_select "div.span-3", "three"
+          assert_select "div.span-2", "two"
+          assert_select "div.span-1.last", "one"
         end
       end
     end
 
     should "allow tag overriding" do
       show_view %(<% column :tag => :section do %>content<% end %>) do
-        assert_select "section.col-24:not([tag=section])", "content"
+        assert_select "section.span-24:not([tag=section])", "content"
       end
     end
   end

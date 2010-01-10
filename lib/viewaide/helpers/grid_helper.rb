@@ -40,7 +40,7 @@ module Viewaide
         @@column_prefix = "span"
       end
 
-      easel_grid!
+      blueprint_grid!
 
       def last_column
         @@last_column
