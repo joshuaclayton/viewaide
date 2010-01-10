@@ -54,7 +54,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
-  s.summary = nil
+  s.summary = %q{Making your views easier}
   s.test_files = [
     "test/date_helper_test.rb",
      "test/form_helper_test.rb",

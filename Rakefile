@@ -7,6 +7,7 @@ begin
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = "viewaide"
     gemspec.description = "Making your views easier"
+    gemspec.summary = "Making your views easier"
     gemspec.email = "joshua.clayton@gmail.com"
     gemspec.homepage = "http://github.com/joshuaclayton/viewaide"
     gemspec.authors = ["Joshua Clayton"]
