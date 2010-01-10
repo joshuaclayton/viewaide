@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class LinkHelperTest < EaselHelpers::ViewTestCase
+class LinkHelperTest < Viewaide::ViewTestCase
   context "link_button" do
 
     should "default with the correct structure" do

@@ -1,8 +1,8 @@
-require 'test_helper'
+require "test_helper"
 
 class RjsHelperTest < ActiveSupport::TestCase
-  include EaselHelpers::Helpers::RjsHelper
-  include EaselHelpers::Helpers::MessageHelper
+  include Viewaide::Helpers::RjsHelper
+  include Viewaide::Helpers::MessageHelper
 
   context "inline_flash" do
     setup do

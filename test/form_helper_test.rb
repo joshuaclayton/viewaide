@@ -1,6 +1,6 @@
-require 'test_helper'
+require "test_helper"
 
-class FormHelperTest < EaselHelpers::ViewTestCase
+class FormHelperTest < Viewaide::ViewTestCase
 
   context "submit_button" do
 

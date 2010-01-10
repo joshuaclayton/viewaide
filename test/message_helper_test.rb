@@ -1,6 +1,6 @@
-require 'test_helper'
+require "test_helper"
 
-class MessageHelperTest < EaselHelpers::ViewTestCase
+class MessageHelperTest < Viewaide::ViewTestCase
 
   context "messages" do
 

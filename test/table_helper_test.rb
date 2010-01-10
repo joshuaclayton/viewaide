@@ -1,6 +1,6 @@
-require 'test_helper'
+require "test_helper"
 
-class TableHelperTest < EaselHelpers::ViewTestCase
+class TableHelperTest < Viewaide::ViewTestCase
 
   context "zebra_row" do
 

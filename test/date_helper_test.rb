@@ -1,7 +1,7 @@
-require 'test_helper'
+require "test_helper"
 
 class DateHelperTest < ActiveSupport::TestCase
-  include EaselHelpers::Helpers::DateHelper
+  include Viewaide::Helpers::DateHelper
 
   context "datetime helper" do
     should "default to an empty string if date is not supplied" do

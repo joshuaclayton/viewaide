@@ -1,4 +1,4 @@
-module EaselHelpers
+module Viewaide
   module Helpers
     module NavigationHelper
       def tab(name, path, options = {}, li_options = {})

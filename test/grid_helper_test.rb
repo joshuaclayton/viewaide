@@ -1,6 +1,6 @@
-require 'test_helper'
+require "test_helper"
 
-class GridHelperTest < EaselHelpers::ViewTestCase
+class GridHelperTest < Viewaide::ViewTestCase
 
   context "advanced grid structures" do
 
@@ -171,7 +171,7 @@ class GridHelperTest < EaselHelpers::ViewTestCase
           <% end %>
         <% end %>
       )
-      EaselHelpers::Helpers::GridHelper.blueprint_grid!
+      Viewaide::Helpers::GridHelper.blueprint_grid!
       show_view template do
         assert_select ".container", 1
         assert_select ".span-24", 1
@@ -185,7 +185,7 @@ class GridHelperTest < EaselHelpers::ViewTestCase
         assert_select ".span-4.last", 1
         assert_select "hr", 2
       end
-      EaselHelpers::Helpers::GridHelper.easel_grid!
+      Viewaide::Helpers::GridHelper.easel_grid!
     end
   end
 

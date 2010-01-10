@@ -1,4 +1,4 @@
-require "easel_helpers"
+require "viewaide"
 
-ActionView::Base.send :include, EaselHelpers::Helpers
-ActionController::Base.send :include, EaselHelpers::PartialCaching
+ActionView::Base.send :include, Viewaide::Helpers
+ActionController::Base.send :include, Viewaide::PartialCaching

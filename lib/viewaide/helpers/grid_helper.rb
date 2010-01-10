@@ -1,4 +1,4 @@
-module EaselHelpers
+module Viewaide
   module Helpers
     module GridHelper
       MULTIPLES = {
@@ -47,7 +47,7 @@ module EaselHelpers
       end
 
       def column(*args, &block)
-        @_easel_column_count ||= application_width
+        @_viewaide_column_count ||= application_width
         col(*args, &block)
       end
 
@@ -83,14 +83,14 @@ module EaselHelpers
         end
       end
 
-      def method_missing_with_easel_widths(call, *args)
+      def method_missing_with_viewaide_widths(call, *args)
         # filter out any initial helper calls
         found = false
         MULTIPLE_FRACTIONS.each do |fraction|
           found = true and break if call.to_s.include?(fraction)
         end
 
-        method_missing_without_easel_widths(call, *args) and return unless found
+        method_missing_without_viewaide_widths(call, *args) and return unless found
 
         # one of the widths is somewhere in the helper call; let's find it
         call.to_s =~ /^((append|prepend|#{column_prefix})_)?(.+)$/
@@ -98,41 +98,41 @@ module EaselHelpers
         class_width = $3
 
         if MULTIPLES.keys.include?(class_width.to_sym)
-          width = @_easel_column_count || application_width
+          width = @_viewaide_column_count || application_width
           "#{class_name}-#{(width*MULTIPLES[class_width.to_sym]).to_i}"
         else
-          method_missing_without_easel_widths(call, *args)
+          method_missing_without_viewaide_widths(call, *args)
         end
       end
 
-      alias_method_chain :method_missing, :easel_widths
+      alias_method_chain :method_missing, :viewaide_widths
 
       private
 
       def application_width; 24; end
 
       def increase_depth(size)
-        @_easel_current_width ||= [application_width.to_s]
+        @_viewaide_current_width ||= [application_width.to_s]
 
-        if @_easel_column_count.present?
-          @_easel_current_width.push(@_easel_column_count.to_s)
+        if @_viewaide_column_count.present?
+          @_viewaide_current_width.push(@_viewaide_column_count.to_s)
         end
 
-        @_easel_column_count = if size.to_s =~ /^\d+$/
+        @_viewaide_column_count = if size.to_s =~ /^\d+$/
           size.to_s.to_i
         else
-          (@_easel_column_count*MULTIPLES[size]).to_i
+          (@_viewaide_column_count*MULTIPLES[size]).to_i
         end
       end
 
       def decrease_depth(size)
-        @_easel_column_count = if size.is_a?(Integer)
-          @_easel_current_width.last.to_i
+        @_viewaide_column_count = if size.is_a?(Integer)
+          @_viewaide_current_width.last.to_i
         else
-          (@_easel_column_count/MULTIPLES[size]).to_i
+          (@_viewaide_column_count/MULTIPLES[size]).to_i
         end
 
-        @_easel_current_width.pop
+        @_viewaide_current_width.pop
       end
 
       def col(*args, &block)
@@ -157,10 +157,10 @@ module EaselHelpers
 
         css_classes = [] << options.delete(:class) << args
         unless options.delete(:suppress_col)
-          css_classes << "#{column_prefix}-#{@_easel_column_count}"
+          css_classes << "#{column_prefix}-#{@_viewaide_column_count}"
         end
 
-        if (size.to_sym rescue nil) == :full && @_easel_column_count != application_width
+        if (size.to_sym rescue nil) == :full && @_viewaide_column_count != application_width
           css_classes << last_column
         end
 

@@ -1,4 +1,4 @@
-module EaselHelpers
+module Viewaide
   module Helpers
     module MessageHelper
 

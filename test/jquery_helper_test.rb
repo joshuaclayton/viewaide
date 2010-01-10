@@ -1,6 +1,6 @@
-require 'test_helper'
+require "test_helper"
 
-class JqueryHelperTest < EaselHelpers::ViewTestCase
+class JqueryHelperTest < Viewaide::ViewTestCase
 
   context "document_ready" do
 

@@ -1,15 +1,15 @@
-require "easel_helpers/helpers/date_helper"
-require "easel_helpers/helpers/form_helper"
-require "easel_helpers/helpers/link_helper"
-require "easel_helpers/helpers/structure_helper"
-require "easel_helpers/helpers/table_helper"
-require "easel_helpers/helpers/grid_helper"
-require "easel_helpers/helpers/message_helper"
-require "easel_helpers/helpers/rjs_helper"
-require "easel_helpers/helpers/jquery_helper"
-require "easel_helpers/helpers/navigation_helper"
+require "viewaide/helpers/date_helper"
+require "viewaide/helpers/form_helper"
+require "viewaide/helpers/link_helper"
+require "viewaide/helpers/structure_helper"
+require "viewaide/helpers/table_helper"
+require "viewaide/helpers/grid_helper"
+require "viewaide/helpers/message_helper"
+require "viewaide/helpers/rjs_helper"
+require "viewaide/helpers/jquery_helper"
+require "viewaide/helpers/navigation_helper"
 
-module EaselHelpers
+module Viewaide
   module Helpers
     include DateHelper
     include FormHelper
@@ -26,7 +26,7 @@ module EaselHelpers
 
     def other_than_grid?(classes)
       (standardize_css_classes(classes).map {|s| s.to_s } -
-       EaselHelpers::Helpers::GridHelper::MULTIPLE_FRACTIONS).any?
+       Viewaide::Helpers::GridHelper::MULTIPLE_FRACTIONS).any?
     end
 
     def clean_css_classes(string_or_array, replace = {})
@@ -41,12 +41,12 @@ module EaselHelpers
         end
       end
 
-      fractions = css_classes & EaselHelpers::Helpers::GridHelper::MULTIPLE_FRACTIONS
+      fractions = css_classes & Viewaide::Helpers::GridHelper::MULTIPLE_FRACTIONS
       if css_classes.any? && fractions.any?
         fractions.each do |fraction|
           css_classes.delete(fraction)
           css_classes << self.send(fraction)
-          if fraction == "full" && @_easel_column_count != application_width
+          if fraction == "full" && @_viewaide_column_count != application_width
             css_classes << last_column
           end
         end

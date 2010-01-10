@@ -1,3 +1,3 @@
-h1. Easel Helpers
+h1. Viewaide
 
 Copyright (c) 2009 Josh Clayton, released under the MIT license

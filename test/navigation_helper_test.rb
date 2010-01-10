@@ -1,7 +1,7 @@
 require "test_helper"
 
 class NavigationHelperTest < ActiveSupport::TestCase
-  include EaselHelpers::Helpers::NavigationHelper
+  include Viewaide::Helpers::NavigationHelper
 
   context "tab" do
     should "parse tab options properly" do

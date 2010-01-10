@@ -1,6 +1,6 @@
-require 'test_helper'
+require "test_helper"
 
-class StructureHelperTest < EaselHelpers::ViewTestCase
+class StructureHelperTest < Viewaide::ViewTestCase
 
   context "blockquote" do
 

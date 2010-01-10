@@ -7,12 +7,12 @@ require 'shoulda/rails'
 require 'action_controller'
 require 'action_controller/test_process'
 
-require "easel_helpers"
+require "viewaide"
 
-ActionView::Base.send :include, EaselHelpers::Helpers
-ActionController::Base.send :include, EaselHelpers::PartialCaching
+ActionView::Base.send :include, Viewaide::Helpers
+ActionController::Base.send :include, Viewaide::PartialCaching
 
-class EaselHelpers::ViewTestCase < ActiveSupport::TestCase
+class Viewaide::ViewTestCase < ActiveSupport::TestCase
   include ActionController::Assertions::SelectorAssertions
 
   def setup
