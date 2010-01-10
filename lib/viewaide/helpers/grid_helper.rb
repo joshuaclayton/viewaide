@@ -30,11 +30,13 @@ module Viewaide
       }.freeze
       MULTIPLE_FRACTIONS = MULTIPLES.keys.map {|key| key.to_s }.freeze
 
+      # force use of Easel-style classes
       def self.easel_grid!
         @@last_column = "col-last"
         @@column_prefix = "col"
       end
 
+      # force use of Blueprint-style classes (the default)
       def self.blueprint_grid!
         @@last_column = "last"
         @@column_prefix = "span"
@@ -42,15 +44,56 @@ module Viewaide
 
       blueprint_grid!
 
+      # @return [String] last column (based on Blueprint or Easel grid formats)
       def last_column
         @@last_column
       end
 
+      # Returns a div with the correct width-calculated class
+      # @param [*Args]
+      # @return [String]
+      # @example
+      #   <% column do %>Full column<% end %>
+      #   generates
+      #   <div class="span-24">Full column</div>
+      #
+      # @example
+      #   <% column do %>
+      #     <% column :half do %>column<% end %>
+      #   <% end %>
+      #   generates
+      #   <div class="span-24">
+      #     <div class="span-12">column</div>
+      #   </div>
+      #
+      # @example
+      #   <% column :one_third do %>one third<% end %>
+      #   <% column :two_thirds, :last do %>two thirds<% end %>
+      #   generates
+      #   <div class="span-8">one third</div>
+      #   <div class="span-16 last">two thirds</div>
+      #
+      # @example
+      #   <% column :one_third, :custom, :id => "column" do %>words<% end %>
+      #   generates
+      #   <div class="span-8 custom" id="column">words</div>
       def column(*args, &block)
         @_viewaide_column_count ||= application_width
         col(*args, &block)
       end
 
+      # Wraps content in a container
+      # @param [Symbol] size size of the container
+      # @return [String]
+      # @example
+      #   <% container do %>content<% end %>
+      #   generates
+      #   <div class="container">content<% end %>
+      #
+      # @example
+      #   <% container :half do %>content<% end %>
+      #   generates
+      #   <div class="container span-12">content<% end %>
       def container(size=nil, *args, &block)
         opts = args.extract_options!
         opts.merge!(:suppress_col => true) if size.nil?

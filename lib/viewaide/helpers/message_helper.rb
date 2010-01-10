@@ -1,7 +1,19 @@
 module Viewaide
   module Helpers
     module MessageHelper
-
+      # Generates paragraphs, each containing the values of the hash passed
+      # @param [Hash] messages a hash (#flash, especially) that will render the values in separate paragraphs
+      # @return [String]
+      # @example
+      #   <%= messages(:notice => "Your record was saved") %>
+      #   generates
+      #   <p class="notice box single-line">Your record was saved</p>
+      #
+      # @example
+      #   <%= messages(:notice => "Your record was saved", :error => "Something happened!") %>
+      #   generates
+      #   <p class="notice box single-line">Your record was saved</p>
+      #   <p class="error box single-line">Something happened!</p>
       def messages(messages, options = {})
         except_keys = [options[:except]].flatten.compact
         only_keys   = [options[:only]].flatten.compact

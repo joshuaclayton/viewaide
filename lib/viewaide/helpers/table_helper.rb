@@ -2,6 +2,23 @@ module Viewaide
   module Helpers
     module TableHelper
 
+      # Generates <tr> elements with alternating classes
+      # @param [Hash] options options passed for classes to cycle through
+      # @return [String]
+      # @example
+      #   <% zebra_row do %>no class<% end %><% zebra_row do %>alt class<% end %>
+      #   generates
+      #   <tr>no class</tr>
+      #   <tr class="alt">alt class</tr>
+      #
+      # @example
+      #   <% (colors = %w(red white blue)).each do |color| %>
+      #     <% zebra_row :cycle_list => colors do %>the color <%= color %><% end %>
+      #   <% end %>
+      #   generates
+      #   <tr class="red">the color red</tr>
+      #   <tr class="white">the color white</tr>
+      #   <tr class="blue">the color blue</tr>
       def zebra_row(options = {}, &block)
         cycle_list = options.delete(:cycle_list) || [nil, "alt"]
         css_classes = [cycle(*cycle_list)] << options.delete(:class)
@@ -13,6 +30,25 @@ module Viewaide
         concat(html)
       end
 
+      # Generates a <table> and appropriate <thead> elements
+      # @param [*Args]
+      # @return [String]
+      # @example
+      #   <% recordset :headers => ["First Column", "Second Column"] do %>
+      #     <tbody>
+      #     </tbody>
+      #   <% end %>
+      #   generates
+      #   <table class="recordset" cellspacing="0">
+      #     <thead>
+      #       <tr>
+      #         <th class="first">First Column</th>
+      #         <th class="last">Second Column</th>
+      #       </tr>
+      #     </thead>
+      #     <tbody>
+      #     </tbody>
+      #   </table>
       def recordset(*args, &block)
         options = args.extract_options!
         options[:table] ||= {}

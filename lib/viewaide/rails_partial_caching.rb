@@ -32,6 +32,8 @@ module Viewaide
     end
 
     module InstanceMethods
+      # Clears viewaide session counts for non-XHR requests
+      # @return [nil]
       def clear_viewaide_cache
         session[:viewaide_cached_column_counts] = nil unless request.xhr?
       end
