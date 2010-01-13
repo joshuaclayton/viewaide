@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{viewaide}
-  s.version = "0.3.1"
+  s.version = "0.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Clayton"]
-  s.date = %q{2010-01-09}
+  s.date = %q{2010-01-12}
   s.description = %q{Making your views easier}
   s.email = %q{joshua.clayton@gmail.com}
   s.extra_rdoc_files = [
