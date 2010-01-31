@@ -7,7 +7,6 @@ require "viewaide/helpers/grid_helper"
 require "viewaide/helpers/message_helper"
 require "viewaide/helpers/rjs_helper"
 require "viewaide/helpers/jquery_helper"
-require "viewaide/helpers/navigation_helper"
 
 module Viewaide
   module Helpers
@@ -20,7 +19,6 @@ module Viewaide
     include MessageHelper
     include RjsHelper
     include JqueryHelper
-    include NavigationHelper
 
     protected
 
