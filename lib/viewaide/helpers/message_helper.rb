@@ -34,7 +34,7 @@ module Viewaide
           if messages[key].present?
             content_tag :p,
                         messages[key],
-                        :class => [key, "box", "single-line"].join(" ")
+                        :class => [key, "single-line"].join(" ")
           end
         end.join
       end

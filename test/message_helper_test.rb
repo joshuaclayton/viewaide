@@ -6,7 +6,7 @@ class MessageHelperTest < Viewaide::ViewTestCase
 
     should "default with the correct structure" do
       show_view %(<%= messages(:structure => "Flash message") %>) do
-        assert_select "p.structure.box.single-line", "Flash message"
+        assert_select "p.structure.single-line", "Flash message"
       end
     end
 
