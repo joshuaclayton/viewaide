@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{viewaide}
-  s.version = "0.3.2"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Clayton"]
-  s.date = %q{2010-01-12}
+  s.date = %q{2010-01-31}
   s.description = %q{Making your views easier}
   s.email = %q{joshua.clayton@gmail.com}
   s.extra_rdoc_files = [
@@ -30,7 +30,6 @@ Gem::Specification.new do |s|
      "lib/viewaide/helpers/jquery_helper.rb",
      "lib/viewaide/helpers/link_helper.rb",
      "lib/viewaide/helpers/message_helper.rb",
-     "lib/viewaide/helpers/navigation_helper.rb",
      "lib/viewaide/helpers/rjs_helper.rb",
      "lib/viewaide/helpers/structure_helper.rb",
      "lib/viewaide/helpers/table_helper.rb",
@@ -43,7 +42,6 @@ Gem::Specification.new do |s|
      "test/jquery_helper_test.rb",
      "test/link_helper_test.rb",
      "test/message_helper_test.rb",
-     "test/navigation_helper_test.rb",
      "test/rjs_helper_test.rb",
      "test/structure_helper_test.rb",
      "test/table_helper_test.rb",
@@ -62,7 +60,6 @@ Gem::Specification.new do |s|
      "test/jquery_helper_test.rb",
      "test/link_helper_test.rb",
      "test/message_helper_test.rb",
-     "test/navigation_helper_test.rb",
      "test/rjs_helper_test.rb",
      "test/structure_helper_test.rb",
      "test/table_helper_test.rb",
