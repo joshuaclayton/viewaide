@@ -9,7 +9,7 @@ module Viewaide
       #   <% zebra_row do %>no class<% end %><% zebra_row do %>alt class<% end %>
       #   generates
       #   <tr>no class</tr>
-      #   <tr class="alt">alt class</tr>
+      #   <tr class="even">alt class</tr>
       #
       # @example
       #   <% (colors = %w(red white blue)).each do |color| %>
@@ -20,7 +20,7 @@ module Viewaide
       #   <tr class="white">the color white</tr>
       #   <tr class="blue">the color blue</tr>
       def zebra_row(options = {}, &block)
-        cycle_list = options.delete(:cycle_list) || [nil, "alt"]
+        cycle_list = options.delete(:cycle_list) || [nil, "even"]
         css_classes = [cycle(*cycle_list)] << options.delete(:class)
         css_classes = clean_css_classes(css_classes)
 

@@ -7,7 +7,7 @@ class TableHelperTest < Viewaide::ViewTestCase
     should "default with the correct structure" do
       show_view "<table><% zebra_row do %>no class<% end %><% zebra_row do %>alt class<% end %></table>" do
         assert_select "tr:first-child", "no class"
-        assert_select "tr.alt:last-child", "alt class"
+        assert_select "tr.even:last-child", "alt class"
       end
     end
 
@@ -54,10 +54,12 @@ class TableHelperTest < Viewaide::ViewTestCase
         <% end %>
         <% recordset do %>
           <% zebra_row do %>text<% end %>
+          <% zebra_row do %>text<% end %>
         <% end %>
       ) do
         assert_select "table.recordset" do
-          assert_select "tr.alt", 0
+          assert_select "tr", 3
+          assert_select "tr.even", 1
         end
       end
 
