@@ -6,7 +6,7 @@ h2. Installation
 
 Viewaide is a gem and should be declared in your @config/environment.rb@.
 
-    config.gem "viewaide"
+<pre><code>config.gem "viewaide"</code></pre>
 
 h2. Usage
 
@@ -14,8 +14,7 @@ Viewaide has a handful of helpers for things like recordsets and zebra rows (@<t
 
 For a full overview of what the library does, head to "the documentation":http://yardoc.org/docs/frames/joshuaclayton-viewaide.  Here's a brief overview.
 
-<pre><code>
-# layouts/admin.html.erb
+<pre><code># layouts/admin.html.erb
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -83,17 +82,14 @@ For a full overview of what the library does, head to "the documentation":http:/
     <% end %>
     <%= submit_button "Filter" %>
   <% end %>
-<% end %>
-</pre></code>
+<% end %></pre></code>
 
 h2. Conventions
 
 Most of the helpers (@body@, @container@, @column@, @fieldset@, @set@, @submit_button@, and @recordset@) support some sort of splat arguments and a hash; that is, they take a handful of classes and a hash of additional attributes.
 
-<pre><code>
-# at the top of a view
-<% body :admin, "another-class", :id => "body-id" %>
-</code></pre>
+<pre><code># at the top of a view
+<% body :admin, "another-class", :id => "body-id" %></code></pre>
 
 This helper would attach the admin and another-class classes, as well as an id of 'body-id', to the @<body>@ element (if the @body@ helper is used in the layout).  This convention allows developers to quickly and easily assign multiple classes without worry of duplication to the HTML structures generated.
 
