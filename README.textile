@@ -1,3 +1,114 @@
 h1. Viewaide
 
+Viewaide contains a set of view helpers made to standardize basic HTML
+structures and provide simple Blueprint CSS integration.
+
+h2. Installation
+
+Viewaide is a gem and should be declared in your @config/environment.rb@.
+
+    config.gem "viewaide"
+
+h2. Usage
+
+Viewaide has a handful of helpers for things like recordsets and zebra rows
+(@<table>@s and @<tr>@s), columns (@<div class="span-#">@), fieldsets, sets
+(for input elements), and more.
+
+For a full overview of what the library does, head to
+"the documentation":http://yardoc.org/docs/frames/joshuaclayton-viewaide.  Here's
+a brief overview.
+
+    # layouts/admin.html.erb
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><%= application_name %></title>
+        <%= stylesheet_link_tag *%w(screen my-screen) %>
+        <!--[if lt IE 8]>
+          <%= stylesheet_link_tag "ie" %>
+        <![endif]-->
+        <%= yield :head %>
+      </head>
+      <% body :admin do %>
+        <% container do %>
+          <% column :header do %>
+            <h1><%= link_to "#{application_name} - Admin", admin_root_path %></h1>
+            <%= render :partial => "layouts/admin_navigation" %>
+          <% end %>
+          <% column do %>
+            <%= messages(flash) %>
+            <h2><%= yield :page_title %></h2>
+            <%= yield %>
+          <% end %>
+          <%= render :partial => "layouts/footer" %>
+        <% end %>
+        <%= yield :footer %>
+      </body>
+    </html>
+
+    # admin/users/index.html.erb
+    <% body :additional_class %>
+    <% column :three_fourths, :content do %>
+      <% recordset do %>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email Address</th>
+            <th>Confirmed At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <% zebra_row do %>
+              <td><%= user.name %></td>
+              <td><%= link_to_email user.email %></td>
+              <td><%= datetime user.confirmed_at, "Unconfirmed" %></td>
+            <% end %>
+          <% end %>
+        </tbody>
+      <% end %>
+    <% end %>
+    <% column :one_fourth, :last do %>
+      <%= link_button "Create New User", new_admin_user_path %>
+      <% form_for :user, :url => admin_users_path, :action => :get do |form| %>
+        <% fieldset "Search" do %>
+          <% set do %>
+            <%= form.label :search %>
+            <%= form.text_field :search %>
+          <% end %>
+        <% end %>
+        <% fieldset "Filter" do %>
+          <% set :select do %>
+            <%= form.label :filter %>
+            <%= form.select :filter, filter_options_for_users %>
+          <% end %>
+        <% end %>
+        <%= submit_button "Filter" %>
+      <% end %>
+    <% end %>
+
+h2. Conventions
+
+Most of the helpers (@body@, @container@, @column@, @fieldset@, @set@,
+@submit_button@, and @recordset@) support some sort of splat arguments and a
+hash; that is, they take a handful of classes and a hash of additional
+attributes.
+
+    # at the top of a view
+    <% body :admin, "another-class", :id => "body-id" %>
+
+This helper would attach the admin and another-class classes, as well as an id
+of 'body-id', to the @<body>@ element (if the @body@ helper is used in the
+layout).  This convention allows developers to quickly and easily assign
+multiple classes without worry of duplication to the HTML structures generated.
+
+h2. Patches, Tweaks, or Fixes?
+
+Fork the project, write (failing) tests, write code to get the tests to pass,
+rake to ensure the entire suite passes, and commit.  Send me a pull request
+once everything is working.  Do not touch Rakefile or version of the project.
+If you write code without tests, I'm not going to accept it.
+
 Copyright (c) 2009 Josh Clayton, released under the MIT license
