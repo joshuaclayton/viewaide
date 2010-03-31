@@ -46,30 +46,22 @@ class GridHelperTest < Viewaide::ViewTestCase
     should "properly assign classes for generic helpers" do
       template = %(
         <% column do %>
-          <% fieldset :hform, :half do %>
-            <% set :one_third do %>text<% end %>
-            <% set :two_thirds, :last do %>more text<% end %>
-          <% end %>
-          <% recordset :half, :last do %>table<% end %>
+          <% recordset :simple, :half do %><% end %>
+          <% recordset :half, :last do %>table content<% end %>
         <% end %>
       )
 
       show_view template do
         assert_select "div.span-24" do
-          assert_select "fieldset.hform.span-12" do
-            assert_select "div.span-4", "text"
-            assert_select "div.span-8.last", "more text"
-          end
-          assert_select "table.span-12.last", "table"
+          assert_select "table.simple.span-12"
+          assert_select "table.span-12.last", "table content"
         end
       end
     end
 
     should "properly assign classes for generic helpers without column wrappers" do
       template = %(
-        <% fieldset :hform, :half do %>
-          <% set :one_third do %>text<% end %>
-          <% set :two_thirds, :last do %>more text<% end %>
+        <% recordset :hform, :half do %>
           <% column do %>
             <% column :one_third do %>one third<% end %>
             <% column :two_thirds, :last do %>
@@ -87,10 +79,7 @@ class GridHelperTest < Viewaide::ViewTestCase
       )
 
       show_view template do
-        assert_select "fieldset.hform.span-12" do
-          assert_select "div.span-4", "text"
-          assert_select "div.span-8.last", "more text"
-
+        assert_select "table.hform.span-12" do
           assert_select "div.span-12.last" do
             assert_select "div.span-4", "one third"
             assert_select "div.span-8.last" do
@@ -112,16 +101,16 @@ class GridHelperTest < Viewaide::ViewTestCase
       template = %(
         <% container :full do %>
           <% column :half do %>
-            <% fieldset :hform, :half do %>
-              <% set :one_third do %>text<% end %>
-              <% set :two_thirds, :last do %>more text<% end %>
+            <% recordset :hform, :half do %>
+              <% column :one_third do %>text<% end %>
+              <% column :two_thirds, :last do %>more text<% end %>
             <% end %>
             <% recordset :half, :last do %>table<% end %>
           <% end %>
           <% column :one_third do %>one third!<% end %>
           <% column :one_sixth, :last do %>
-            <% fieldset :vform, :full do %>
-              <% set do %>text<% end %>
+            <% recordset :vform, :full do %>
+              <% column do %>text<% end %>
             <% end %>
           <% end %>
         <% end %>
@@ -131,7 +120,7 @@ class GridHelperTest < Viewaide::ViewTestCase
         assert_select "div.container.span-24", 1
         assert_select "div.container" do
           assert_select "div.span-12" do
-            assert_select "fieldset.hform.span-6" do
+            assert_select "table.hform.span-6" do
               assert_select "div.span-2", "text"
               assert_select "div.span-4.last", "more text"
             end
@@ -141,7 +130,7 @@ class GridHelperTest < Viewaide::ViewTestCase
           assert_select "div.span-8", "one third!"
 
           assert_select "div.span-4.last" do
-            assert_select "fieldset.vform.span-4.last" do
+            assert_select "table.vform.span-4.last" do
               assert_select "div", "text"
             end
           end

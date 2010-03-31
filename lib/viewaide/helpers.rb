@@ -1,5 +1,4 @@
 require "viewaide/helpers/date_helper"
-require "viewaide/helpers/form_helper"
 require "viewaide/helpers/link_helper"
 require "viewaide/helpers/structure_helper"
 require "viewaide/helpers/table_helper"
@@ -11,7 +10,6 @@ require "viewaide/helpers/jquery_helper"
 module Viewaide
   module Helpers
     include DateHelper
-    include FormHelper
     include LinkHelper
     include StructureHelper
     include TableHelper
