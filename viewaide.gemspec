@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{viewaide}
-  s.version = "0.4.1"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Clayton"]
-  s.date = %q{2010-02-08}
+  s.date = %q{2010-03-31}
   s.description = %q{Making your views easier}
   s.email = %q{joshua.clayton@gmail.com}
   s.extra_rdoc_files = [
@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
      "lib/viewaide.rb",
      "lib/viewaide/helpers.rb",
      "lib/viewaide/helpers/date_helper.rb",
-     "lib/viewaide/helpers/form_helper.rb",
      "lib/viewaide/helpers/grid_helper.rb",
      "lib/viewaide/helpers/jquery_helper.rb",
      "lib/viewaide/helpers/link_helper.rb",
@@ -37,7 +36,6 @@ Gem::Specification.new do |s|
      "rails/init.rb",
      "tasks/viewaide_tasks.rake",
      "test/date_helper_test.rb",
-     "test/form_helper_test.rb",
      "test/grid_helper_test.rb",
      "test/jquery_helper_test.rb",
      "test/link_helper_test.rb",
@@ -51,11 +49,10 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/joshuaclayton/viewaide}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Making your views easier}
   s.test_files = [
     "test/date_helper_test.rb",
-     "test/form_helper_test.rb",
      "test/grid_helper_test.rb",
      "test/jquery_helper_test.rb",
      "test/link_helper_test.rb",
