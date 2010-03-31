@@ -23,7 +23,7 @@ module Viewaide
     protected
 
     def other_than_grid?(classes)
-      (standardize_css_classes(classes).map {|s| s.to_s } -
+      (standardize_css_classes(classes).map {|css_class| css_class.to_s } -
        Viewaide::Helpers::GridHelper::MULTIPLE_FRACTIONS).any?
     end
 
@@ -31,32 +31,40 @@ module Viewaide
       css_classes = [] + standardize_css_classes(string_or_array)
 
       if replace.any?
-        replace.keys.each do |k|
-          if css_classes.include? k
-            css_classes.delete(k)
-            css_classes << replace[k]
-          end
-        end
+        replace_css_classes(css_classes, replace)
       end
 
       fractions = css_classes & Viewaide::Helpers::GridHelper::MULTIPLE_FRACTIONS
       if css_classes.any? && fractions.any?
-        fractions.each do |fraction|
-          css_classes.delete(fraction)
-          css_classes << self.send(fraction)
-          if fraction == "full" && @_viewaide_column_count != application_width
-            css_classes << last_column
-          end
-        end
+        replace_fractions(css_classes, fractions)
       end
 
-      css_classes.map {|s| s.strip }.reject {|s| s.blank? }.uniq.join(" ").strip
+      css_classes.map(&:strip).reject(&:blank?).uniq.join(" ").strip
     end
 
     private
 
     def standardize_css_classes(string_or_array)
       [string_or_array].flatten.join(" ").split(/ /)
+    end
+
+    def replace_css_classes(css_classes, replace)
+      replace.keys.each do |key|
+        if css_classes.include?(key)
+          css_classes.delete(key)
+          css_classes << replace[key]
+        end
+      end
+    end
+
+    def replace_fractions(css_classes, fractions)
+      fractions.each do |fraction|
+        css_classes.delete(fraction)
+        css_classes << self.send(fraction)
+        if fraction == "full" && @_viewaide_column_count != application_width
+          css_classes << last_column
+        end
+      end
     end
 
     BLOCK_CALLED_FROM_ERB = 'defined? __in_erb_template'

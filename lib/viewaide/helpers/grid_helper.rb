@@ -2,31 +2,31 @@ module Viewaide
   module Helpers
     module GridHelper
       MULTIPLES = {
-        :one_twentyfourth =>          (1/24.to_f),
-        :one_twelfth =>               (1/12.to_f),
-        :one_eigth =>                 (1/8.to_f),
-        :one_sixth =>                 (1/6.to_f),
-        :five_twentyfourths =>        (5/24.to_f),
-        :one_fourth =>                (1/4.to_f),
-        :seven_twentyfourths =>       (7/24.to_f),
-        :one_third =>                 (1/3.to_f),
-        :three_eigths =>              (3/8.to_f),
-        :five_twelfths =>             (5/12.to_f),
-        :eleven_twentyfourths =>      (11/24.to_f),
-        :one_half =>                  (1/2.to_f),
-        :half =>                      (1/2.to_f),
-        :thirteen_twentyfourths =>    (13/24.to_f),
-        :seven_twelfths =>            (7/12.to_f),
-        :five_eigths =>               (5/8.to_f),
-        :two_thirds =>                (2/3.to_f),
-        :seventeen_twentyfourths =>   (17/24.to_f),
-        :three_fourths =>             (3/4.to_f),
-        :nineteen_twentyfourths =>    (19/24.to_f),
-        :five_sixths =>               (5/6.to_f),
-        :seven_eigths =>              (7/8.to_f),
-        :eleven_twelfths =>           (11/12.to_f),
-        :twentythree_twentyfourths => (23/24.to_f),
-        :full =>                      (1.to_f)
+        :one_twentyfourth =>          (1/24.0),
+        :one_twelfth =>               (1/12.0),
+        :one_eigth =>                 (1/8.0),
+        :one_sixth =>                 (1/6.0),
+        :five_twentyfourths =>        (5/24.0),
+        :one_fourth =>                (1/4.0),
+        :seven_twentyfourths =>       (7/24.0),
+        :one_third =>                 (1/3.0),
+        :three_eigths =>              (3/8.0),
+        :five_twelfths =>             (5/12.0),
+        :eleven_twentyfourths =>      (11/24.0),
+        :one_half =>                  (1/2.0),
+        :half =>                      (1/2.0),
+        :thirteen_twentyfourths =>    (13/24.0),
+        :seven_twelfths =>            (7/12.0),
+        :five_eigths =>               (5/8.0),
+        :two_thirds =>                (2/3.0),
+        :seventeen_twentyfourths =>   (17/24.0),
+        :three_fourths =>             (3/4.0),
+        :nineteen_twentyfourths =>    (19/24.0),
+        :five_sixths =>               (5/6.0),
+        :seven_eigths =>              (7/8.0),
+        :eleven_twelfths =>           (11/12.0),
+        :twentythree_twentyfourths => (23/24.0),
+        :full =>                      (1.0)
       }.freeze
       MULTIPLE_FRACTIONS = MULTIPLES.keys.map {|key| key.to_s }.freeze
 
@@ -104,19 +104,17 @@ module Viewaide
       def clean_column(classes, &block)
         size = classes.scan(/#{column_prefix}-(\d+)/).flatten.last
 
+        executed_with_erb = block_given? && block_is_within_action_view?(block)
+
         if size.nil?
           html = capture(&block)
-          if block_given? && block_is_within_action_view?(block)
-            concat(html)
-          else
-            html
-          end
+          executed_with_erb ? concat(html) : html
         else
           size = size.to_i
           increase_depth(size)
           html = capture(&block)
 
-          if block_given? && block_is_within_action_view?(block)
+          if executed_with_erb
             concat(html)
             decrease_depth(size)
           else
